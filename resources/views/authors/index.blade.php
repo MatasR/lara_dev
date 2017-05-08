@@ -55,6 +55,7 @@
 							<table class="table table-striped">
 								<thead>
 									<tr>
+										<th class="text-center"><input type="checkbox" onClick="toggle(this)"/></th>
 										<th>#</th>
 										<th>Name</th>
 										<th>Books</th>
@@ -64,6 +65,7 @@
 								<tbody>
 									@foreach($authors as $author)
 										<tr>
+											<td class="text-center"><input name="delete_many" value="{{ $author->id }}" type="checkbox"/></td>
 											<td>{{ $author->id }}</td>
 											<td>{{ $author->name }}</td>
 											<td>
@@ -93,6 +95,18 @@
 											</td>
 										</tr>
 									@endforeach
+									<tr>
+										<th class="text-center">
+											<form method="POST" action="{{ route('authors.destroy', ['author' => 'many']) }}" onsubmit="return delete_many();" id="delete_many">
+
+												{{ csrf_field() }}
+												{{ method_field('DELETE') }}
+												
+												<button type="submit" class="btn btn-sm btn-danger">Delete selected</button>
+
+											</form>
+										</th>
+									</tr>
 								</tbody>
 							</table>
 						</div>

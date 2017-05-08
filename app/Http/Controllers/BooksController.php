@@ -58,7 +58,7 @@ class BooksController extends Controller
         $book = Book::find($id);
         $book->fill($request->all());
         $book->save();
-        return redirect()->back();
+        return redirect('books.index');
     }
 
     /**
@@ -67,9 +67,13 @@ class BooksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(BookStoreRequest $request, $id)
     {
+        if($id == 'many')
+            $id = $request->input('id');
+
         Book::destroy($id);
+
         return redirect()->back();
     }
 }
