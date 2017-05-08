@@ -65,12 +65,27 @@ class AuthorsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(AuthorStoreRequest $request, $id)
     {
-        $author = Author::find($id);
-        $author->books()->delete();
-        $author->delete();
-        //Author::destroy($id);
+        if($id == 'many'){
+            $id = $request->input('id');
+
+            //Delete all books which were wrote by author
+            //then delete author
+            foreach($id as $i){
+                $author = Author::find($i);
+                $author->books()->delete();
+                $author->delete();
+            }
+
+        }else{
+            //Delete all books which were wrote by author
+            //then delete author
+            $author = Author::find($id);
+            $author->books()->delete();
+            $author->delete();
+        }
+
         return redirect()->back()->with('success', 'Deleted successfuly!');
     }
 }

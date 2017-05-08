@@ -67,9 +67,13 @@ class BooksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(BookStoreRequest $request, $id)
     {
+        if($id == 'many')
+            $id = $request->input('id');
+
         Book::destroy($id);
+        
         return redirect()->back()->with('success', 'Deleted successfuly!');
     }
 }

@@ -19,6 +19,30 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
+
+    <!-- Custom scripts -->
+    <script type="text/javascript">
+        function toggle(src){
+            var chkbxs = $('input[name=delete_many]');
+            for(var i=0, n=chkbxs.length;i<n;i++)
+                chkbxs[i].checked = src.checked;
+        }
+
+        function delete_many(){
+            var chkbxs = $('input[name=delete_many]:checked');
+
+            if(chkbxs.length == 0){
+                alert('None selected');
+                return false;
+            }else{
+                chkbxs.each(function(i, e){
+                    $('form#delete_many').prepend('<input type="hidden" name="id[]" value="'+e.value+'"/>');
+                });
+
+                return confirm('r u sure?');
+            }
+        }
+    </script>
 </head>
 <body>
     <div id="app">
