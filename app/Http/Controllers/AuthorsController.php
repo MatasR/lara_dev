@@ -56,7 +56,7 @@ class AuthorsController extends Controller
         $author = Author::find($id);
         $author->name = $request->input('name');
         $author->save();
-        return redirect('authors.index');
+        return redirect()->back();
     }
 
     /**

@@ -58,7 +58,7 @@ class BooksController extends Controller
         $book = Book::find($id);
         $book->fill($request->all());
         $book->save();
-        return redirect('books.index');
+        return redirect()->back();
     }
 
     /**
