@@ -20,6 +20,14 @@
 						</div>
 					@endif
 
+					@if(Session::has('success'))
+						<div class="alert alert-success">
+							<ul>
+								<li>{{ Session::get('success') }}</li>
+							</ul>
+						</div>
+					@endif
+
 					<form class="form-horizontal" role="form" method="POST" action="{{ isset($edit_author) ? route('authors.update', ['id' => $edit_author->id]) : route('authors.store') }}">
 
 						{{ csrf_field() }}

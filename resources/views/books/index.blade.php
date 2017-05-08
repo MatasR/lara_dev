@@ -22,6 +22,14 @@
 							</div>
 						@endif
 
+						@if(Session::has('success'))
+							<div class="alert alert-success">
+								<ul>
+									<li>{{ Session::get('success') }}</li>
+								</ul>
+							</div>
+						@endif
+
 						<form class="form-horizontal" role="form" method="POST" action="{{ isset($edit_book) ? route('books.update', ['id' => $edit_book->id]) : route('books.store') }}">
 
 							{{ csrf_field() }}
