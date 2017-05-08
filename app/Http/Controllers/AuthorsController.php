@@ -28,7 +28,7 @@ class AuthorsController extends Controller
     public function store(AuthorStoreRequest $request)
     {
         Author::create($request->all());
-        return redirect()->back()->with('success', 'Inserted successfuly!');
+        return redirect()->back()->with('success', 'Inserted successfully!');
     }
 
     /**
@@ -56,7 +56,7 @@ class AuthorsController extends Controller
         $author = Author::find($id);
         $author->name = $request->input('name');
         $author->save();
-        return redirect(route('authors.index'))->with('success', 'Updated successfuly!');
+        return redirect(route('authors.index'))->with('success', 'Updated successfully!');
     }
 
     /**
@@ -86,6 +86,6 @@ class AuthorsController extends Controller
             $author->delete();
         }
 
-        return redirect()->back()->with('success', 'Deleted successfuly!');
+        return redirect()->back()->with('success', 'Deleted successfully!');
     }
 }

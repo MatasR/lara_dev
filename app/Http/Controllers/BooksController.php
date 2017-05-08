@@ -29,7 +29,7 @@ class BooksController extends Controller
     public function store(BookStoreRequest $request)
     {
     	Book::create($request->all());
-        return redirect()->back()->with('success', 'Inserted successfuly!');
+        return redirect()->back()->with('success', 'Inserted successfully!');
     }
 
     /**
@@ -58,7 +58,7 @@ class BooksController extends Controller
         $book = Book::find($id);
         $book->fill($request->all());
         $book->save();
-        return redirect(route('books.index'))->with('success', 'Updated successfuly!');
+        return redirect(route('books.index'))->with('success', 'Updated successfully!');
     }
 
     /**
@@ -74,6 +74,6 @@ class BooksController extends Controller
 
         Book::destroy($id);
         
-        return redirect()->back()->with('success', 'Deleted successfuly!');
+        return redirect()->back()->with('success', 'Deleted successfully!');
     }
 }
