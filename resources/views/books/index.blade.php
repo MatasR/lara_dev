@@ -30,7 +30,7 @@
 							</div>
 						@endif
 
-						<form class="form-horizontal" role="form" method="POST" action="{{ isset($edit_book) ? route('books.update', ['id' => $edit_book->id]) : route('books.store') }}">
+						<form class="form-horizontal" role="form" method="POST" action="{{ isset($edit_book) ? route('books.update', ['id' => $edit_book->id]) : route('books.store') }}" enctype="multipart/form-data">
 
 							{{ csrf_field() }}
 
@@ -43,6 +43,26 @@
 								<label for="name" class="col-md-4 control-label">Book name</label>
 								<div class="col-md-6">
 	                                <input id="name" type="text" class="form-control" name="name" value="{{ isset($edit_book) ? $edit_book->name : old('name') }}" required/>
+	                            </div>
+							</div>
+
+							@if(isset($edit_book))
+								<div class="form-group">
+									<label for="image" class="col-md-4 control-label">Current image</label>
+									<div class="col-md-6">
+										<input type="text" class="form-control" name="image" value="{{ asset('images/books/'.$edit_book->image) }}" onclick="select(this)"/>
+									</div>
+								</div>
+							@endif
+
+							<div class="form-group">
+	                            <label for="new_image" class="col-md-4 control-label">New image</label>
+								<div class="col-md-6">
+	                                <input 
+	                                	type="file" 
+	                                	class="form-control" 
+	                                	name="new_image"
+	                                	{{ (isset($edit_book) ? '' : 'required') }}/>
 	                            </div>
 							</div>
 
@@ -99,7 +119,11 @@
 										<tr>
 											<td class="text-center"><input name="delete_many" value="{{ $book->id }}" type="checkbox"/></td>
 											<td>{{ $book->id }}</td>
-											<td>{{ $book->name }}</td>
+											<td>
+												<a target="_blank" href="{{ asset('storage/images/books/'.$book->image) }}">
+													{{ $book->name }}
+												</a>
+											</td>
 											<td>{{ $book->author->name }}</td>
 											<td>
 												<form method="POST" action="{{ route('books.destroy', ['book' => $book->id]) }}" onsubmit="return confirm('r u sure?');">

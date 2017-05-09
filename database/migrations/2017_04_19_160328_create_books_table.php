@@ -20,6 +20,7 @@ class CreateBooksTable extends Migration
             $table->foreign('author_id')
                 ->references('id')
                 ->on('authors');
+            $table->string('image');
             $table->timestamps();
             $table->softDeletes();
         });

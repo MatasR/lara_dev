@@ -31,13 +31,16 @@ class BookStoreRequest extends FormRequest
             }
             case 'POST':{
                 return [
-                    'name'  => 'required|min:6|unique:books,name'
+                    'name'  => 'required|min:3|unique:books,name',
+                    'new_image' => 'required|image|mimes:jpeg'
                 ];
             }
             case 'PUT':
             case 'PATCH':{
                 return [
-                    'name' => 'required|min:6|unique:books,name,'.$request->get('id')
+                    'name' => 'required|min:3|unique:books,name,'.$request->get('id'),
+                    'image' => 'required',
+                    'new_image' => 'image|mimes:jpeg'
                 ];
             }
         }

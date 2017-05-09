@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Book;
 use App\Author;
 use App\Http\Requests\BookStoreRequest;
+use Illuminate\Support\Facades\Storage;
 
 class BooksController extends Controller
 {
@@ -28,7 +29,16 @@ class BooksController extends Controller
      */
     public function store(BookStoreRequest $request)
     {
-    	Book::create($request->all());
+        $inputs = $request->all();
+
+        $image = $request->new_image->hashName();
+
+        $inputs['image'] = $image;
+        
+        Book::create($inputs);
+
+        $request->new_image->store('public/images/books');
+        
         return redirect()->back()->with('success', 'Inserted successfully!');
     }
 
@@ -56,7 +66,16 @@ class BooksController extends Controller
     public function update(BookStoreRequest $request, $id)
     {
         $book = Book::find($id);
-        $book->fill($request->all());
+        $book->name = $request->input('name');
+        $book->author_id = $request->input('author_id');
+
+        if($request->hasFile('new_image')){
+            Storage::delete('public/images/books/'.$book->image);
+            $image = $request->new_image->hashName();
+            $book->image = $image;
+            $request->new_image->store('public/images/books');
+        }
+
         $book->save();
         return redirect(route('books.index'))->with('success', 'Updated successfully!');
     }
@@ -69,8 +88,13 @@ class BooksController extends Controller
      */
     public function destroy(BookStoreRequest $request, $id)
     {
-        if($id == 'many')
+        if($id == 'many'){
             $id = $request->input('id');
+            foreach($id as $i){
+                $book = Book::find($i);
+                Storage::delete('public/images/books/'.$book->image);
+            }
+        }
 
         Book::destroy($id);
         

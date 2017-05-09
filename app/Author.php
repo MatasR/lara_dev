@@ -14,7 +14,7 @@ class Author extends Model
 	*
 	* @var array
 	*/
-	protected $fillable = ['name'];
+	protected $fillable = ['name', 'image'];
 	protected $dates = ['deleted_at'];
 
 	public function books(){

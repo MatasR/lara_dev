@@ -28,7 +28,7 @@
 						</div>
 					@endif
 
-					<form class="form-horizontal" role="form" method="POST" action="{{ isset($edit_author) ? route('authors.update', ['id' => $edit_author->id]) : route('authors.store') }}">
+					<form class="form-horizontal" role="form" method="POST" action="{{ isset($edit_author) ? route('authors.update', ['id' => $edit_author->id]) : route('authors.store') }}" enctype="multipart/form-data">
 
 						{{ csrf_field() }}
 
@@ -41,6 +41,26 @@
 							<label for="author" class="col-md-4 control-label">Author name</label>
 							<div class="col-md-6">
                                 <input type="text" class="form-control" name="name" value="{{ isset($edit_author) ? $edit_author->name : old('name') }}" required/>
+                            </div>
+						</div>
+
+						@if(isset($edit_author))
+							<div class="form-group">
+								<label for="image" class="col-md-4 control-label">Current image</label>
+								<div class="col-md-6">
+									<input type="text" class="form-control" name="image" value="{{ asset('images/authors/'.$edit_author->image) }}" onclick="select(this)"/>
+								</div>
+							</div>
+						@endif
+
+						<div class="form-group">
+                            <label for="new_image" class="col-md-4 control-label">New image</label>
+							<div class="col-md-6">
+                                <input 
+                                	type="file" 
+                                	class="form-control" 
+                                	name="new_image"
+                                	{{ (isset($edit_author) ? '' : 'required') }}/>
                             </div>
 						</div>
 
@@ -75,7 +95,11 @@
 										<tr>
 											<td class="text-center"><input name="delete_many" value="{{ $author->id }}" type="checkbox"/></td>
 											<td>{{ $author->id }}</td>
-											<td>{{ $author->name }}</td>
+											<td>
+												<a target="_blank" href="{{ asset('storage/images/authors/'.$author->image) }}">
+													{{ $author->name }}
+												</a>
+											</td>
 											<td>
 												{{ implode(', ', array_column($author->books->toArray(), 'name')) }}
 											</td>
@@ -114,6 +138,10 @@
 
 											</form>
 										</th>
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
 									</tr>
 								</tbody>
 							</table>
