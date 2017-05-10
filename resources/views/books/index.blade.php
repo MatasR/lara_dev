@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">Books</div>
+                <div class="panel-heading">{{ __('lang.books') }}</div>
 
                 <div class="panel-body">
                     
@@ -40,7 +40,7 @@
 							@endif
 							
 							<div class="form-group">
-								<label for="name" class="col-md-4 control-label">Book name</label>
+								<label for="name" class="col-md-4 control-label">{{ __('lang.book_name') }}</label>
 								<div class="col-md-6">
 	                                <input id="name" type="text" class="form-control" name="name" value="{{ isset($edit_book) ? $edit_book->name : old('name') }}" required/>
 	                            </div>
@@ -48,7 +48,7 @@
 
 							@if(isset($edit_book))
 								<div class="form-group">
-									<label for="image" class="col-md-4 control-label">Current image</label>
+									<label for="image" class="col-md-4 control-label">{{ __('lang.cur_image') }}</label>
 									<div class="col-md-6">
 										<input type="text" class="form-control" name="image" value="{{ asset('images/books/'.$edit_book->image) }}" onclick="select(this)"/>
 									</div>
@@ -56,7 +56,7 @@
 							@endif
 
 							<div class="form-group">
-	                            <label for="new_image" class="col-md-4 control-label">New image</label>
+	                            <label for="new_image" class="col-md-4 control-label">{{ __('lang.new_image') }}</label>
 								<div class="col-md-6">
 	                                <input 
 	                                	type="file" 
@@ -67,7 +67,7 @@
 							</div>
 
 							<div class="form-group">
-								<label for="author" class="col-md-4 control-label">Author</label>
+								<label for="author" class="col-md-4 control-label">{{ __('lang.author') }}</label>
 								<div class="col-md-6">
 									<select id="author" class="form-control" name="author_id">
 										@foreach($authors as $author)
@@ -85,9 +85,9 @@
 	                            <div class="col-md-8 col-md-offset-4">
 	                                <button type="submit" class="btn btn-primary">
 	                                    @if(isset($edit_book))
-	                                    	Update
+	                                    	{{ __('lang.update') }}
 	                                    @else
-	                                    	Add new
+	                                    	{{ __('lang.add_new') }}
 	                                    @endif
 	                                </button>
 	                            </div>
@@ -97,8 +97,8 @@
 					
 					@else
 
-						<h2>No authors found!</h2>
-						<p>Please submit at least one author first.</p>
+						<h2>{{ __('lang.no_authors') }}</h2>
+						<p>{{ __('lang.submit_author') }}</p>
 
                     @endif
 
@@ -109,9 +109,9 @@
 									<tr>
 										<th class="text-center"><input type="checkbox" onClick="toggle(this)"/></th>
 										<th>#</th>
-										<th>Name</th>
-										<th>Author</th>
-										<th>Action</th>
+										<th>{{ __('lang.name') }}</th>
+										<th>{{ __('lang.authors') }}</th>
+										<th>{{ __('lang.action') }}</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -126,7 +126,7 @@
 											</td>
 											<td>{{ $book->author->name }}</td>
 											<td>
-												<form method="POST" action="{{ route('books.destroy', ['book' => $book->id]) }}" onsubmit="return confirm('r u sure?');">
+												<form method="POST" action="{{ route('books.destroy', ['book' => $book->id]) }}" onsubmit="return confirm('{{ __('lang.r_u_sure') }}');">
 
 													{{ csrf_field() }}
 													{{ method_field('DELETE') }}
@@ -137,7 +137,7 @@
 														<div class="btn-group">
 															<a href="{{ route('books.edit', ['book' => $book->id]) }}">
 																<button type="button" class="btn btn-sm btn-primary">
-																	Edit
+																	{{ __('lang.edit') }}
 																</button>
 															</a>
 														</div>
@@ -156,7 +156,7 @@
 												{{ csrf_field() }}
 												{{ method_field('DELETE') }}
 
-												<button type="submit" class="btn btn-sm btn-danger">Delete selected</button>
+												<button type="submit" class="btn btn-sm btn-danger">{{ __('lang.delete_selected') }}</button>
 
 											</form>
 										</th>

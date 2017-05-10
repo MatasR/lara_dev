@@ -39,7 +39,7 @@
                     $('form#delete_many').prepend('<input type="hidden" name="id[]" value="'+e.value+'"/>');
                 });
 
-                return confirm('r u sure?');
+                return confirm('{{ __('lang.r_u_sure') }}');
             }
         }
     </script>
@@ -52,7 +52,7 @@
 
                     <!-- Collapsed Hamburger -->
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
+                        <span class="sr-only">{{ __('lang.toggle_nav') }}</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -70,16 +70,21 @@
                         &nbsp;
                         @if (Auth::user())
                             <li>
-                                <a href="{{ route('authors.index') }}">Authors</a>
+                                <a href="{{ route('authors.index') }}">{{ __('lang.authors') }}</a>
                             </li>
                             <li>
-                                <a href="{{ route('books.index') }}">Books</a>
+                                <a href="{{ route('books.index') }}">{{ __('lang.books') }}</a>
                             </li>
                         @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
+
+                        <!--Locale change-->
+                        <li><a href="/locale/lt">LT</a></li>
+                        <li><a href="/locale/en">EN</a></li>
+
                         <!-- Authentication Links -->
                         @if (Auth::guest())
                             <li><a href="{{ route('login') }}">Login</a></li>

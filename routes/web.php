@@ -19,7 +19,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'locale']], function () {
+
+	//Locale
+	Route::get('locale/{locale}', function($locale){
+		Session::put('locale', $locale);
+		return redirect()->back();
+	});
 
 	//Both
 	Route::get('both', 'BothController@index')->name('both');

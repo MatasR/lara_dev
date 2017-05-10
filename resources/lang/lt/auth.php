@@ -13,16 +13,7 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-
-    /*
-    Default auth text
-    */
-
-    'login' => 'Login',
-    'logout' => 'Logout',
-    'signup' => 'Register',
-    
+    'failed' => 'Šie duomenys neatitinka mūsų turimų duomenų.',
+    'throttle' => 'Per daug bandymų prisijungti. Pabandykite iš naujo po :seconds sekundžių.',
 
 ];
